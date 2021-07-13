@@ -1,4 +1,5 @@
-﻿using DigitalAvenue.Repository.LocationsRepo;
+﻿using DigitalAvenue.Repository.ErrorRepo;
+using DigitalAvenue.Repository.LocationsRepo;
 using DigitalAvenue.Repository.ProductsRepo;
 using DigitalAvenue.Repository.StorageUtil;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ namespace DigitalAvenue.Repository
             services.AddTransient<IProductRepo, ProductRepo>();
             services.AddTransient<ILocationRepo, LocationRepo>();
             services.AddTransient<ILocationRepo, LocationRepo>();
+            services.AddTransient<IErrorLoggerRepo, ErrorLoggerRepo>();
             return services;
         }
     }

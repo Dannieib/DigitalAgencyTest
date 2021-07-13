@@ -10,7 +10,7 @@ namespace DigitalAvenue.Models
     {
         public int Id { get; set; }
         public string ErrorMessage { get; set; }
-        public string ErrorCode { get; set; }
+        public string ErrorType { get; set; }
         public string ErrorStackTrace { get; set; }
         public DateTime DateTimeCatched { get; set; }
     }

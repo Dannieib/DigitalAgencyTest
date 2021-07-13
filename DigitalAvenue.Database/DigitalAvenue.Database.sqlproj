@@ -97,5 +97,7 @@
     <Build Include="dbo\Stored Procedures\SPPrefixes\spUpdateSaleInfo.sql" />
     <Build Include="dbo\Stored Procedures\SPPrefixes\spGetSalesBySalesId.sql" />
     <Build Include="dbo\Stored Procedures\SPPrefixes\spDeleteSaleById.sql" />
+    <Build Include="dbo\Tables\Master_ErrorLogger.sql" />
+    <Build Include="dbo\Stored Procedures\SPPrefixes\spLogErrorToDB.sql" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
-﻿using DigitalAvenue.Logic.LocationLogic;
+﻿using DigitalAvenue.Logic;
+using DigitalAvenue.Logic.LocationLogic;
 using DigitalAvenue.Logic.ProductsLogic;
 using DigitalAvenue.Models;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +18,13 @@ namespace DigitalAvenue.API.Controllers
     {
         readonly IProductsAppService _productAppService;
         readonly ILocationAppService _locationAppService;
+        readonly IErrorServiceHandler _errorServiceHandler;
 
-        public SalesController(IProductsAppService productsAppService, ILocationAppService locationAppService)
+        public SalesController(IProductsAppService productsAppService, ILocationAppService locationAppService, IErrorServiceHandler errorServiceHandler)
         {
             _locationAppService = locationAppService;
             _productAppService = productsAppService;
+            _errorServiceHandler = errorServiceHandler;
         }
 
         [HttpPost("addnew")]
@@ -37,11 +40,13 @@ namespace DigitalAvenue.API.Controllers
                 var response = await _productAppService.InsertNewSales(model);
                 if (response>0)
                     return Ok(response);
+
+                await _errorServiceHandler.Save("Update info for sales returned null", null, ErrorTypeEnum.NormalError);
                 return BadRequest(null);
             }
             catch (Exception ex)
             {
-
+                await _errorServiceHandler.Save(ex.Message, ex.StackTrace, ErrorTypeEnum.Exception);
                 throw;
             }
         }
@@ -59,11 +64,13 @@ namespace DigitalAvenue.API.Controllers
                 var response = await _productAppService.UpdateSalesById(model);
                 if (response!=null)
                     return Ok(response);
+
+                await _errorServiceHandler.Save("Update info for sales returned null", null, ErrorTypeEnum.NormalError);
                 return BadRequest(null);
             }
             catch (Exception ex)
             {
-
+                await _errorServiceHandler.Save(ex.Message, ex.StackTrace, ErrorTypeEnum.Exception);
                 throw;
             }
         }
@@ -81,10 +88,13 @@ namespace DigitalAvenue.API.Controllers
                 var response = await _productAppService.DeleteSalesById(id);
                 if (response != null)
                     return Ok(response);
+
+                await _errorServiceHandler.Save("delete info returned null for sales", null, ErrorTypeEnum.NormalError);
                 return BadRequest(null);
             }
             catch (Exception ex)
             {
+                await _errorServiceHandler.Save(ex.Message, ex.StackTrace, ErrorTypeEnum.Exception);
                 throw;
             }
         }
@@ -101,6 +111,7 @@ namespace DigitalAvenue.API.Controllers
             }
             catch (Exception ex)
             {
+                await _errorServiceHandler.Save(ex.Message, ex.StackTrace, ErrorTypeEnum.Exception);
                 throw;
             }
         }

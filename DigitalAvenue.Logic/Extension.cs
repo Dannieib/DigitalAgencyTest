@@ -11,6 +11,7 @@ namespace DigitalAvenue.Logic
         {
             services.AddTransient<IProductsAppService, ProductsAppService>();
             services.AddTransient<ILocationAppService, LocationAppService>();
+            services.AddTransient<IErrorServiceHandler, ErrorServiceHandler>();
             return services;
         }
     }
